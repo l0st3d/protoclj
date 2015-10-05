@@ -1,5 +1,5 @@
 (ns protoclj.reflection
-  (:import [com.google.protobuf GeneratedMessage GeneratedMessage$Builder ByteString]
+  (:import [com.google.protobuf GeneratedMessage GeneratedMessage$Builder GeneratedMessage$ExtendableBuilder ByteString]
            [java.lang Iterable]))
 
 (defn- keywordize-fn
@@ -18,7 +18,7 @@
   "Check if the given class is part of an internal function"
   [^Class type]
   (or (= ByteString type)
-      (= GeneratedMessage$Builder (.getSuperclass type))))
+      (#{GeneratedMessage$ExtendableBuilder GeneratedMessage$Builder} (.getSuperclass type))))
 
 (defn- regular-attribute
   "Build a map representing a regular attribute"
